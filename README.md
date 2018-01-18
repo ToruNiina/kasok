@@ -65,8 +65,6 @@ $ ./bin/leibniz
 
 ## Testing
 
-__NOTE__ : Currently, testing is not supported.
-
 Using CMake. It will downloads Catch2 and Boost.CallableTraits.
 
 ```sh
