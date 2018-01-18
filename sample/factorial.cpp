@@ -1,5 +1,6 @@
 #include <kasok/aitken.hpp>
 #include <chrono>
+#include <vector>
 #include <iostream>
 #include <iomanip>
 #include <cmath>
@@ -77,5 +78,31 @@ int main()
                       << iteration_limit << " iteration\n";
         }
     }
+
+    std::cout << "--using pre-calculated table\n";
+
+    const std::vector<double> table = {
+        1.0,
+        1.0 / 1.0,
+        1.0 / (1.0 * 2.0),
+        1.0 / (1.0 * 2.0 * 3.0),
+        1.0 / (1.0 * 2.0 * 3.0 * 4.0),
+        1.0 / (1.0 * 2.0 * 3.0 * 4.0 * 5.0),
+        1.0 / (1.0 * 2.0 * 3.0 * 4.0 * 5.0 * 6.0),
+        1.0 / (1.0 * 2.0 * 3.0 * 4.0 * 5.0 * 6.0 * 7.0),
+        1.0 / (1.0 * 2.0 * 3.0 * 4.0 * 5.0 * 6.0 * 7.0 * 8.0),
+        1.0 / (1.0 * 2.0 * 3.0 * 4.0 * 5.0 * 6.0 * 7.0 * 8.0 * 9.0),
+        1.0 / (1.0 * 2.0 * 3.0 * 4.0 * 5.0 * 6.0 * 7.0 * 8.0 * 9.0 * 10.0)
+    };
+
+    const auto tol = [](double x, double y) noexcept -> bool {
+        return std::abs(x - y) < 1e-8 || std::abs(x / y - 1.0) < 1e-6;
+    };
+    auto iter = table.begin();
+    const auto e = ksk::aitken_sum(iter, table.end(), tol);
+    std::cout << "aitken : e = " << std::setw(16) << std::left
+              << e << ", for "   << std::setw(3) << std::right
+              << std::distance(table.begin(), iter) << " iteration";
+
     return 0;
 }

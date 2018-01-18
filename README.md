@@ -46,7 +46,56 @@ int main()
 ```
 
 For more information, see `sample/leibniz.cpp`.
-After building, you can run the sample code.
+
+### Using iterator as terms of the series.
+
+Using pre-calculated table or user-defined class that emulates iterator.
+
+```cpp
+#include <kasok/aitken.hpp>
+#include <vector>
+#include <iostream>
+#include <iomanip>
+#include <cstdint>
+#include <cmath>
+
+int main()
+{
+    // pre-calculated table.
+    const std::vector<double> table = {
+        1.0,
+        1.0 / 1.0,
+        1.0 / (1.0 * 2.0),
+        1.0 / (1.0 * 2.0 * 3.0),
+        1.0 / (1.0 * 2.0 * 3.0 * 4.0),
+        1.0 / (1.0 * 2.0 * 3.0 * 4.0 * 5.0),
+        1.0 / (1.0 * 2.0 * 3.0 * 4.0 * 5.0 * 6.0),
+        1.0 / (1.0 * 2.0 * 3.0 * 4.0 * 5.0 * 6.0 * 7.0),
+        1.0 / (1.0 * 2.0 * 3.0 * 4.0 * 5.0 * 6.0 * 7.0 * 8.0),
+        1.0 / (1.0 * 2.0 * 3.0 * 4.0 * 5.0 * 6.0 * 7.0 * 8.0 * 9.0),
+        1.0 / (1.0 * 2.0 * 3.0 * 4.0 * 5.0 * 6.0 * 7.0 * 8.0 * 9.0 * 10.0)
+    };
+
+    // tolerance
+    const auto tol = [](double x, double y) noexcept -> bool {
+        return std::abs(x - y) < 1e-8 || std::abs(x / y - 1.0) < 1e-6;
+    };
+
+    // iterator that points the first element
+    auto iter = table.begin();
+
+    // caluclate sum using lookup table
+    const auto sum = ksk::aitken_sum(iter, table.end(), tol);
+
+    std::cout << std::setprecision(15);
+    std::cout << "e ~ " << sum << " @ "
+              << std::distance(table.begin(), iter) << " iteration." << std::endl;
+    // after calculation, `iter` is set to the actual number of iteration.
+    return 0;
+}
+```
+
+For more information, see `sample/factorial.cpp`.
 
 ## Build
 
