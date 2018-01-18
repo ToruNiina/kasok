@@ -1,5 +1,6 @@
 kasok
 ====
+[![Build Status](https://travis-ci.org/ToruNiina/kasok.svg?branch=master)](https://travis-ci.org/ToruNiina/kasok)
 
 a toolbox for series acceleration.
 
