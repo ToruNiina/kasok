@@ -77,7 +77,7 @@ aitken(Function&& f, Tolerance&& tolerance, UInt& iteration)
 //!          `bool operator!=(FirstIterator, LastIterator)` is defined.
 template<typename FirstIterator, typename LastIterator, typename Tolerance>
 typename std::iterator_traits<FirstIterator>::value_type
-aitken_range(FirstIterator& first, LastIterator last, Tolerance&& tolerance)
+aitken(FirstIterator& first, LastIterator last, Tolerance&& tolerance)
 {
     using result_type = typename std::iterator_traits<FirstIterator>::value_type;
     static_assert(boost::callable_traits::is_invocable_r<
@@ -174,7 +174,7 @@ aitken_sum(Function&& f, Tolerance&& tolerance, UInt& iteration)
 //!          `bool operator!=(FirstIterator, LastIterator)` is defined.
 template<typename FirstIterator, typename LastIterator, typename Tolerance>
 typename std::iterator_traits<FirstIterator>::value_type
-aitken_sum_range(FirstIterator& first, LastIterator last, Tolerance&& tolerance)
+aitken_sum(FirstIterator& first, LastIterator last, Tolerance&& tolerance)
 {
     using result_type = typename std::iterator_traits<FirstIterator>::value_type;
     static_assert(boost::callable_traits::is_invocable_r<
