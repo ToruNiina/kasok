@@ -6,7 +6,7 @@ a toolbox for series acceleration.
 
 kasok requires C++11 and Boost.CallableTraits.
 
-For testing, Catch2 is required(see below).
+Testing codes depend on Catch2.
 
 ## Example
 
@@ -46,27 +46,34 @@ int main()
 ```
 
 For more information, see `sample/leibniz.cpp`.
-After building, you can run it.
+After building, you can run the sample code.
 
 ## Build
 
 kasok is a header-only library.
-You need nothing except to add a include path.
+To use it in your code, you need nothing except to add an include path.
 
-To build a sample, run this commands.
+To build samples, run this commands.
 
 ```sh
+$ git clone --recursive https://github.com/ToruNiina/kasok.git
+$ cd kasok
 $ mkdir build
 $ cd build
 $ cmake ..
 $ make
-$ cd ..
-$ ./bin/leibniz
+```
+
+After build, the executables will be found in `bin/` directory.
+
+```sh
+$ cd ../bin
+$ ./leibniz
 ```
 
 ## Testing
 
-Using CMake. It will downloads Catch2 and Boost.CallableTraits.
+If you already built samples, you can run test programs just by `make test`.
 
 ```sh
 $ mkdir build
