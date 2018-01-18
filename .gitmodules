@@ -1,3 +1,6 @@
 [submodule "extlib/callable_traits"]
 	path = extlib/callable_traits
 	url = https://github.com/boostorg/callable_traits.git
+[submodule "extlib/Catch2"]
+	path = extlib/Catch2
+	url = https://github.com/catchorg/Catch2.git
