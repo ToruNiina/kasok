@@ -2,6 +2,7 @@ project(kasok)
 cmake_minimum_required(VERSION 3.0)
 enable_testing()
 
+add_definitions(-std=c++11 -pedantic -Wall)
 include_directories(${PROJECT_SOURCE_DIR})
 
 if(EXISTS "${PROJECT_SOURCE_DIR}/extlib/callable_traits/include/boost/callable_traits.hpp")

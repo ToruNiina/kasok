@@ -5,7 +5,6 @@ set(TEST_FILENAMES
 include_directories("${PROJECT_SOURCE_DIR}/extlib/callable_traits/include/")
 include_directories("${PROJECT_SOURCE_DIR}/extlib")
 
-add_definitions("-std=c++11 -pedantic -Wall")
 add_definitions("-Ofast -march=native -mtune=native")
 
 foreach(TEST_NAME ${TEST_FILENAMES})
