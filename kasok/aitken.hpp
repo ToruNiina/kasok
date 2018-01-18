@@ -85,7 +85,11 @@ aitken_range(FirstIterator& first, LastIterator last, Tolerance&& tolerance)
         "Tolerance must be a type `bool tolerance(result_type, result_type)`");
 
     result_type xn  = *first; ++first;
+    if(first == last) {return xn;}
+
     result_type xn1 = *first; ++first;
+    if(first == last) {return xn1;}
+
     result_type Axn = xn1;
     for(; first != last; ++first)
     {
@@ -178,7 +182,11 @@ aitken_sum_range(FirstIterator& first, LastIterator last, Tolerance&& tolerance)
         "Tolerance must be callable as tolerance(result_type)");
 
     result_type xn  = *first;      ++first;
+    if(first == last) {return xn;}
+
     result_type xn1 = *first + xn; ++first;
+    if(first == last) {return xn1;}
+
     result_type Axn = xn1;
     for(; first != last; ++first)
     {
