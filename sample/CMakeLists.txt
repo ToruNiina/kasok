@@ -1,6 +1,7 @@
 set(SAMPLE_FILENAMES
     leibniz
     factorial
+    basel_problem
     )
 
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY "${PROJECT_SOURCE_DIR}/bin")
