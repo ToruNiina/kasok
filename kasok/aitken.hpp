@@ -39,7 +39,7 @@ aitken(Function&& f, Tolerance&& tolerance, UInt& iteration)
     result_type xn  = f(0);
     result_type xn1 = f(1);
     result_type Axn = xn1;
-    for(std::uintmax_t i=2, imax=iteration; i<imax; ++i)
+    for(UInt i=2, imax=iteration; i<imax; ++i)
     {
         const result_type xn2  = f(i);
         const result_type dxn  = xn1 - xn;
@@ -135,7 +135,7 @@ aitken_sum(Function&& f, Tolerance&& tolerance, UInt& iteration)
     result_type xn  = f(0);
     result_type xn1 = xn + f(1);
     result_type Axn = xn1;
-    for(std::uintmax_t i=2, imax=iteration; i<imax; ++i)
+    for(UInt i=2, imax=iteration; i<imax; ++i)
     {
         const result_type xn2  = xn1 + f(i);
         const result_type dxn  = xn1 - xn;
