@@ -3,9 +3,7 @@
 //! \author Toru Niina (niina.toru.68u@gmail.com)
 #ifndef KASOK_AITKENS_DELTA_SQUARED_PROCESS_HPP
 #define KASOK_AITKENS_DELTA_SQUARED_PROCESS_HPP
-#include <boost/callable_traits/return_type.hpp>
-#include <boost/callable_traits/is_invocable.hpp>
-#include <type_traits>
+#include "type_traits.hpp"
 #include <iterator>
 #include <cstdint>
 
@@ -26,14 +24,12 @@ namespace ksk
 //! \details accelerates the rate of convergence of a series that is generated
 //!          by f. {s_i} = {f(0), f(1), f(2), ...}
 template<typename Function, typename Tolerance, typename UInt>
-boost::callable_traits::return_type_t<Function>
+invoke_result_t<Function, UInt>
 aitken(Function&& f, Tolerance&& tolerance, UInt& iteration)
 {
-    using result_type = boost::callable_traits::return_type_t<Function>;
-    static_assert(boost::callable_traits::is_invocable<Function, UInt>::value,
-        "Function must be callable as f(uint)");
-    static_assert(boost::callable_traits::is_invocable_r<
-            bool, Tolerance, result_type, result_type>::value,
+    using result_type = invoke_result_t<Function, UInt>;
+    static_assert(std::is_same<bool,
+        invoke_result_t<Tolerance, result_type, result_type>>::value,
         "Tolerance must be a type `bool tolerance(result_type, result_type)`");
 
     result_type xn  = f(0);
@@ -80,8 +76,8 @@ typename std::iterator_traits<FirstIterator>::value_type
 aitken(FirstIterator& first, LastIterator last, Tolerance&& tolerance)
 {
     using result_type = typename std::iterator_traits<FirstIterator>::value_type;
-    static_assert(boost::callable_traits::is_invocable_r<
-            bool, Tolerance, result_type, result_type>::value,
+    static_assert(std::is_same<bool,
+        invoke_result_t<Tolerance, result_type, result_type>>::value,
         "Tolerance must be a type `bool tolerance(result_type, result_type)`");
 
     result_type xn  = *first; ++first;
@@ -120,16 +116,12 @@ aitken(FirstIterator& first, LastIterator last, Tolerance&& tolerance)
 //! \tparam Tolerance is `bool Tolerance(result_type, result_type)`
 //! \tparam UInt      is an unsigned integer type.
 template<typename Function, typename Tolerance, typename UInt>
-boost::callable_traits::return_type_t<Function>
+invoke_result_t<Function, UInt>
 aitken_sum(Function&& f, Tolerance&& tolerance, UInt& iteration)
 {
-    using result_type = boost::callable_traits::return_type_t<Function>;
-    static_assert(
-        boost::callable_traits::is_invocable<Function, UInt>::value,
-        "Function must be callable as f(uint)");
-    static_assert(
-        boost::callable_traits::is_invocable_r<
-            bool, Tolerance, result_type, result_type>::value,
+    using result_type = invoke_result_t<Function, UInt>;
+    static_assert(std::is_same<bool,
+        invoke_result_t<Tolerance, result_type, result_type>>::value,
         "Tolerance must be a type `bool tolerance(result_type, result_type)`");
 
     result_type xn  = f(0);
@@ -177,9 +169,9 @@ typename std::iterator_traits<FirstIterator>::value_type
 aitken_sum(FirstIterator& first, LastIterator last, Tolerance&& tolerance)
 {
     using result_type = typename std::iterator_traits<FirstIterator>::value_type;
-    static_assert(boost::callable_traits::is_invocable_r<
-            bool, Tolerance, result_type, result_type>::value,
-        "Tolerance must be callable as tolerance(result_type)");
+    static_assert(std::is_same<bool,
+        invoke_result_t<Tolerance, result_type, result_type>>::value,
+        "Tolerance must be a type `bool tolerance(result_type, result_type)`");
 
     result_type xn  = *first;      ++first;
     if(first == last) {return xn;}
