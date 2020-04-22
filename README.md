@@ -4,7 +4,7 @@ kasok
 
 a toolbox for series acceleration.
 
-kasok requires C++11 and Boost.CallableTraits.
+kasok requires C++11 or later.
 
 Testing codes depend on Catch2.
 
